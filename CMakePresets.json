@@ -11,5 +11,12 @@
       "generator": "Ninja Multi-Config",
       "binaryDir": "${sourceDir}/build/default"
     }
+  ],
+  "buildPresets": [
+    {
+      "name": "default",
+      "configurePreset": "default",
+      "configuration": "Release"
+    }
   ]
 }
