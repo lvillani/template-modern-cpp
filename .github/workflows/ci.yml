@@ -8,6 +8,7 @@ on:
 
 env:
   BUILD_TYPE: Release
+  PYTHONUNBUFFERED: 1
 
 jobs:
   build:
