@@ -23,6 +23,8 @@ def prepare():
         call("sudo", "apt-get", "install", "-y", "ninja-build")
     elif is_macos():
         call("brew", "install", "ninja")
+    elif is_windows():
+        call("choco", "install", "ninja")
 
 
 def is_linux() -> bool:
@@ -31,6 +33,10 @@ def is_linux() -> bool:
 
 def is_macos() -> bool:
     return platform.system() == "Darwin"
+
+
+def is_windows() -> bool:
+    return platform.system() == "Windows"
 
 
 def is_ci() -> bool:
