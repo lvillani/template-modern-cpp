@@ -17,6 +17,7 @@ def main():
 
 def prepare():
     if not is_ci():
+        # Assuming the developer has all tools already installed.
         return
 
     if is_linux():
