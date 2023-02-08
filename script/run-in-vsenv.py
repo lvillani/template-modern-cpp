@@ -48,10 +48,12 @@ def is_windows() -> bool:
 
 
 def vsdevcmd_path() -> pathlib.Path:
+    # See also: https://github.com/microsoft/vswhere/wiki/Find-VC
     return vs_install_dir() / "Common7" / "Tools" / "vsdevcmd.bat"
 
 
 def vs_install_dir() -> pathlib.Path:
+    # See also: https://github.com/microsoft/vswhere/wiki/Find-VC
     return pathlib.Path(
         output(
             "vswhere",
