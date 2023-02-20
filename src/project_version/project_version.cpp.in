@@ -1,0 +1,27 @@
+#include "project_version.h"
+
+std::string project_version()
+{
+    return "@PROJECT_VERSION@";
+}
+
+unsigned project_version_major()
+{
+    return @PROJECT_VERSION_MAJOR@;
+}
+
+unsigned project_version_minor()
+{
+    return @PROJECT_VERSION_MINOR@ + 0;
+}
+
+unsigned project_version_patch()
+{
+    return @PROJECT_VERSION_PATCH@ + 0;
+}
+
+unsigned project_version_tweak()
+{
+    return @PROJECT_VERSION_TWEAK@ + 0;
+}
+
