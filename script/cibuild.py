@@ -4,40 +4,22 @@
 #
 
 import os
-import platform
+import pathlib
 import subprocess
+import sys
+
+
+TOP_LEVEL = pathlib.Path(__file__).parent.parent
 
 
 def main():
-    prepare()
+    if is_ci():
+        # Assuming CI always starts from scratch and needs the bootstrap script to run but allow
+        # quicker runs on the developer machine.
+        call(sys.executable, str(TOP_LEVEL / "script" / "bootstrap.py"))
 
     call("cmake", "--preset", "default")
     call("cmake", "--build", "--preset", "default")
-
-
-def prepare():
-    if not is_ci():
-        # Assuming the developer has all tools already installed.
-        return
-
-    if is_linux():
-        call("sudo", "apt-get", "install", "-y", "ninja-build")
-    elif is_macos():
-        call("brew", "install", "ninja")
-    elif is_windows():
-        call("choco", "install", "ninja")
-
-
-def is_linux() -> bool:
-    return platform.system() == "Linux"
-
-
-def is_macos() -> bool:
-    return platform.system() == "Darwin"
-
-
-def is_windows() -> bool:
-    return platform.system() == "Windows"
 
 
 def is_ci() -> bool:
