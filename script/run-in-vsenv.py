@@ -34,7 +34,7 @@ def main():
 
     call(
         os.environ["COMSPEC"],
-        "/k",
+        "/c",
         str(vsdevcmd),
         "-arch=x64",
         "-host_arch=x64",
