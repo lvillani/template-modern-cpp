@@ -1,16 +1,18 @@
 #include <iostream>
 
+#include <spdlog/spdlog.h>
+
 #include <project_version/project_version.h>
 
 int main() {
-    std::cout << "Hello, world." << std::endl;
+    spdlog::info("Hello, world.");
 
-    std::cout << "Project version:" << std::endl;
-    std::cout << "String: " << project_version() << std::endl;
-    std::cout << "Major: " << project_version_major() << std::endl;
-    std::cout << "Minor: " << project_version_minor() << std::endl;
-    std::cout << "Patch: " << project_version_patch() << std::endl;
-    std::cout << "Tweak: " << project_version_tweak() << std::endl;
+    spdlog::info("Project version:");
+    spdlog::info("String: {}", project_version());
+    spdlog::info("Major: {}", project_version_major());
+    spdlog::info("Minor: {}", project_version_minor());
+    spdlog::info("Patch: {}", project_version_patch());
+    spdlog::info("Tweak: {}", project_version_tweak());
 
     return 0;
 }
