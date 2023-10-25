@@ -25,6 +25,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: actions/cache@v3
+        with:
+          path: venv
+          key: ${{ matrix.os }}-venv-${{ hashFiles('**/requirements.txt') }}
+
       - name: Build (Unix)
         run: ./script/cibuild.py
         if: ${{ !startsWith(matrix.os, 'windows') }}
