@@ -10,7 +10,7 @@ import shutil
 import subprocess
 import typing
 
-TOP_LEVEL = pathlib.Path(__file__).parent.parent
+TOP_LEVEL = pathlib.Path(__file__).parent.parent.absolute()
 CONAN_DIR = TOP_LEVEL / "conan"
 
 

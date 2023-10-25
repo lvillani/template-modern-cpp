@@ -9,7 +9,7 @@ import subprocess
 import sys
 
 
-TOP_LEVEL = pathlib.Path(__file__).parent.parent
+TOP_LEVEL = pathlib.Path(__file__).parent.parent.absolute()
 
 
 def main():
