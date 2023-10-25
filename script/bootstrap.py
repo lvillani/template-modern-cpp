@@ -4,38 +4,48 @@
 #
 
 import json
+import os
 import pathlib
-import platform
-import shutil
 import subprocess
 import typing
+import venv
 
 TOP_LEVEL = pathlib.Path(__file__).parent.parent.absolute()
 CONAN_DIR = TOP_LEVEL / "conan"
+VENV_DIR = TOP_LEVEL / "venv"
 
 
 def main():
-    install_system_packages()
+    setup_venv()
     setup_conan()
 
 
-def install_system_packages():
-    if is_linux():
-        call("sudo", "apt-get", "install", "-y", "ninja-build")
-        call("pip3", "install", "--user", "conan")
-    elif is_macos():
-        call("brew", "install", "conan", "ninja")
-    elif is_windows():
-        call("choco", "install", "conan", "ninja")
+def setup_venv():
+    if not VENV_DIR.exists():
+        venv.create(VENV_DIR, with_pip=True)
+
+    activate_venv()
+
+    call(
+        "pip",
+        "install",
+        "--requirement",
+        str(TOP_LEVEL / "requirements.txt"),
+    )
+
+
+def activate_venv():
+    assert VENV_DIR.is_dir()
+    os.environ["PATH"] = str(VENV_DIR / "bin") + os.pathsep + os.environ["PATH"]
 
 
 def setup_conan():
     if "default" not in conan_profiles():
-        call(conan(), "profile", "detect")
+        call("conan", "profile", "detect")
 
     # fmt: off
     call(
-        conan(),
+        "conan",
         "install",
         "--build=missing",
         "--conf", "tools.cmake.cmaketoolchain:generator=Ninja",
@@ -46,28 +56,7 @@ def setup_conan():
 
 
 def conan_profiles() -> typing.List[str]:
-    return json.loads(output(conan(), "profile", "list", "--format", "json"))
-
-
-def conan() -> str:
-    if is_windows() and not shutil.which("conan"):
-        # Freshly installed Conan may not be immediately available in PATH, especially
-        # in CI.
-        return r"C:\Program Files\Conan\conan\conan.exe"
-
-    return "conan"
-
-
-def is_linux() -> bool:
-    return platform.system() == "Linux"
-
-
-def is_macos() -> bool:
-    return platform.system() == "Darwin"
-
-
-def is_windows() -> bool:
-    return platform.system() == "Windows"
+    return json.loads(output("conan", "profile", "list", "--format", "json"))
 
 
 def call(*args: str) -> int:
