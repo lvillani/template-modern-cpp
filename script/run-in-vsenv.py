@@ -36,7 +36,7 @@ def main():
         os.environ["COMSPEC"],
         "/c",
         str(vsdevcmd),
-        "-arch=x64",
+        "-arch=amd64",
         "&&",
         *sys.argv[1:],
     )
