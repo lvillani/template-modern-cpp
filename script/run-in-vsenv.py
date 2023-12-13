@@ -27,7 +27,7 @@ def main():
         print(f"Could not find {vswhere}.")
         sys.exit(1)
 
-    vsdevcmd = vsdevcmd_path()
+    vsdevcmd = vsdevcmd_path(vswhere)
     if not vsdevcmd.exists():
         print(f"Could not find {vsdevcmd}.")
         sys.exit(1)
@@ -47,16 +47,16 @@ def is_windows() -> bool:
     return platform.system() == "Windows"
 
 
-def vsdevcmd_path() -> pathlib.Path:
+def vsdevcmd_path(vswhere_exe: pathlib.Path) -> pathlib.Path:
     # See also: https://github.com/microsoft/vswhere/wiki/Find-VC
-    return vs_install_dir() / "Common7" / "Tools" / "vsdevcmd.bat"
+    return vs_install_dir(vswhere_exe) / "Common7" / "Tools" / "vsdevcmd.bat"
 
 
-def vs_install_dir() -> pathlib.Path:
+def vs_install_dir(vswhere_exe: pathlib.Path) -> pathlib.Path:
     # See also: https://github.com/microsoft/vswhere/wiki/Find-VC
     return pathlib.Path(
         output(
-            "vswhere",
+            f"{vswhere_exe}",
             "-latest",
             "-products",
             "*",
