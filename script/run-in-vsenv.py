@@ -22,12 +22,12 @@ def main():
         print("COMSPEC environment variable is not defined, cannot proceed.")
         sys.exit(1)
 
-    vswhere = pathlib.Path(os.path.expandvars(VSWHERE_LOCATION))
-    if not vswhere.exists():
-        print(f"Could not find {vswhere}.")
+    vswhere_exe = pathlib.Path(os.path.expandvars(VSWHERE_LOCATION))
+    if not vswhere_exe.exists():
+        print(f"Could not find {vswhere_exe}.")
         sys.exit(1)
 
-    vsdevcmd = vsdevcmd_path(vswhere)
+    vsdevcmd = vsdevcmd_path(vswhere_exe)
     if not vsdevcmd.exists():
         print(f"Could not find {vsdevcmd}.")
         sys.exit(1)
