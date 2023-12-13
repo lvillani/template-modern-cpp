@@ -37,7 +37,6 @@ def main():
         "/c",
         str(vsdevcmd),
         "-arch=x64",
-        "-host_arch=x64",
         "&&",
         *sys.argv[1:],
     )
