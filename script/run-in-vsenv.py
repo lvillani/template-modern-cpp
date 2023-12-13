@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# script/run-in-vsenv.py - Runs a command inside Visual Studio Command Prompt's x64 environment
+# script/run-in-vsenv.py - Runs a command inside Visual Studio Command Prompt's environment
 #
 
 import os
