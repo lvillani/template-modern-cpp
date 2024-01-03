@@ -20,6 +20,22 @@ jobs:
           - macos-12
           - ubuntu-20.04
           - ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: venv
+          key: ${{ matrix.os }}-venv-${{ hashFiles('**/requirements.txt') }}
+
+      - name: Build
+        run: ./script/cibuild.py
+
+  build-windows:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
           - windows-2019
           - windows-2022
     steps:
@@ -30,10 +46,5 @@ jobs:
           path: venv
           key: ${{ matrix.os }}-venv-${{ hashFiles('**/requirements.txt') }}
 
-      - name: Build (Unix)
-        run: ./script/cibuild.py
-        if: ${{ !startsWith(matrix.os, 'windows') }}
-
-      - name: Build (Windows)
+      - name: Build
         run: py -3 .\script\run-in-vsenv.py py -3 .\script\cibuild.py
-        if: ${{ startsWith(matrix.os, 'windows') }}
