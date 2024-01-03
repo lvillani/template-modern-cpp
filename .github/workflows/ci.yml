@@ -38,6 +38,9 @@ jobs:
         os:
           - windows-2019
           - windows-2022
+        arch:
+          - x64
+          - x86
     steps:
       - uses: actions/checkout@v3
 
@@ -47,4 +50,4 @@ jobs:
           key: ${{ matrix.os }}-venv-${{ hashFiles('**/requirements.txt') }}
 
       - name: Build
-        run: py -3 .\script\run-in-vsenv.py py -3 .\script\cibuild.py
+        run: py -3 .\script\run-in-vsenv.py --arch ${{ matrix.arch }} py -3 .\script\cibuild.py
