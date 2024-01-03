@@ -48,7 +48,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: venv
-          key: ${{ matrix.os }}-venv-${{ hashFiles('**/requirements.txt') }}
+          key: ${{ matrix.os }}-${{ matrix.arch }}-venv-${{ hashFiles('**/requirements.txt') }}
 
       - name: Build
         run: py -3 .\script\run-in-vsenv.py --arch ${{ matrix.arch }} py -3 .\script\cibuild.py
