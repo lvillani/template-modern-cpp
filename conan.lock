@@ -1,8 +1,8 @@
 {
     "version": "0.5",
     "requires": [
-        "spdlog/1.11.0#faa6eb03bd1009bf2070b0c77e4f56a6%1675940535.417",
-        "fmt/9.1.0#e747928f85b03f48aaf227ff897d9634%1675126490.952"
+        "spdlog/1.13.0#7cdcebd081d5385a82363f09eec93a99%1705076465.871",
+        "fmt/10.2.0#43aafa5364c2359fc45be77d2587ab15%1704167364.714"
     ],
     "build_requires": [],
     "python_requires": []
