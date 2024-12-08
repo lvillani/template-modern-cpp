@@ -120,14 +120,12 @@ def vs_install_dir(
     )
 
     install_dir = output(
-        f"{vswhere_exe}",
-        *version_arg,
-        "-products",
-        "*",
-        "-requires",
-        "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",  # x86 and AMD64
-        "-property",
-        "installationPath",
+        # fmt: off
+        f"{vswhere_exe}", *version_arg,
+        "-products", "*",
+        "-requires", "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",  # x86 and AMD64
+        "-property", "installationPath",
+        # fmt: on
     )
 
     # NOTE: vswhere.exe doesn't seem to exit with an error if the requested VS version
