@@ -8,44 +8,22 @@ import os
 import pathlib
 import subprocess
 import typing
-import venv
 
 TOP_LEVEL = pathlib.Path(__file__).parent.parent.absolute()
 CONAN_DIR = TOP_LEVEL / "conan"
-VENV_DIR = TOP_LEVEL / "venv"
 
 
 def main():
-    setup_venv()
     setup_conan()
-
-
-def setup_venv():
-    if not VENV_DIR.exists():
-        venv.create(VENV_DIR, with_pip=True)
-
-    activate_venv()
-
-    call(
-        "pip",
-        "install",
-        "--requirement",
-        str(TOP_LEVEL / "requirements.txt"),
-    )
-
-
-def activate_venv():
-    assert VENV_DIR.is_dir()
-    os.environ["PATH"] = str(VENV_DIR / "bin") + os.pathsep + os.environ["PATH"]
 
 
 def setup_conan():
     if "default" not in conan_profiles():
-        call("conan", "profile", "detect")
+        call("uv", "run", "conan", "profile", "detect")
 
     # fmt: off
     call(
-        "conan",
+        "uv", "run", "conan",
         "install",
         "--build=missing",
         "--conf", "tools.cmake.cmaketoolchain:generator=Ninja",
@@ -57,7 +35,9 @@ def setup_conan():
 
 
 def conan_profiles() -> typing.List[str]:
-    return json.loads(output("conan", "profile", "list", "--format", "json"))
+    return json.loads(
+        output("uv", "run", "conan", "profile", "list", "--format", "json")
+    )
 
 
 def conan_arch() -> typing.List[str]:

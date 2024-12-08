@@ -25,10 +25,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/cache@v4
+      - uses: astral-sh/setup-uv@v4
         with:
-          path: venv
-          key: ${{ matrix.os }}-venv-${{ hashFiles('**/requirements.txt') }}
+          cache-dependency-glob: "uv.lock"
+          enable-cache: true
+          version: "0.5.7"
 
       - name: Build
         run: ./script/cibuild.py
@@ -46,10 +47,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/cache@v4
+      - uses: astral-sh/setup-uv@v4
         with:
-          path: venv
-          key: ${{ matrix.os }}-${{ matrix.arch }}-venv-${{ hashFiles('**/requirements.txt') }}
+          cache-dependency-glob: "uv.lock"
+          enable-cache: true
+          version: "0.5.7"
 
       - name: Build
         run: py -3 .\script\run-in-vsenv.py --arch ${{ matrix.arch }} py -3 .\script\cibuild.py

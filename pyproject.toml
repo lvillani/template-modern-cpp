@@ -1,0 +1,11 @@
+[project]
+name = "template-modern-cpp"
+version = "0.0.0"
+requires-python = ">=3.8"
+
+[dependency-groups]
+dev = [
+    "cmake",
+    "conan",
+    "ninja",
+]
