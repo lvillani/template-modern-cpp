@@ -53,12 +53,12 @@ VERSION_TO_RANGE = {
 def main():
     args, rest = parse_args()
 
-    if not rest:
-        print("Must specify a command to run inside the Visual Studio environment.")
-        sys.exit(1)
-
     if not is_windows():
         print("This script only works on Windows.")
+        sys.exit(1)
+
+    if not rest:
+        print("Must specify a command to run inside the Visual Studio environment.")
         sys.exit(1)
 
     if not "COMSPEC" in os.environ:
