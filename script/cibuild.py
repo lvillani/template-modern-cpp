@@ -18,8 +18,7 @@ def main():
         # quicker runs on the developer machine.
         call(sys.executable, str(TOP_LEVEL / "script" / "bootstrap.py"))
 
-    call("uv", "run", "cmake", "--preset", "default")
-    call("uv", "run", "cmake", "--build", "--preset", "default")
+    call("uv", "run", "cmake", "--workflow", "--preset", "default")
 
 
 def is_ci() -> bool:

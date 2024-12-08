@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 6,
   "configurePresets": [
     {
       "name": "default",
@@ -15,6 +15,15 @@
     {
       "name": "default",
       "configurePreset": "default"
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "default",
+      "steps": [
+        { "name": "default", "type": "configure" },
+        { "name": "default", "type": "build" }
+      ]
     }
   ]
 }
